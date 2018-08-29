@@ -6,7 +6,7 @@ const staticAssets = [
 	'./images/friday_13th_wide.jpg'
 ];
 
-// Our own code!
+// My code!
 
 // self.addEventListener('install', async event => {
 // 	console.log("install");
