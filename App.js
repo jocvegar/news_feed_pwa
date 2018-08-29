@@ -7,7 +7,34 @@ window.addEventListener('load', async e => {
 	updateNews();
 	await updateSources();
 	sourceSelector.value = defaultSource;
-})
+
+	sourceSelector.addEventListener('change', e => {
+		updateNews(e.target.value);
+	});
+
+	if('serviceWorker' in navigator) {
+		try {
+			navigator.serviceWorker.register('sW.js');
+			console.log("sw registered");
+		} catch (error) {
+			console.log("sw register failed");
+		}
+	}
+});
+
+async function updateNews(source = defaultSource ) {
+	try {
+		const response = await fetch(`https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}`);
+		if (response.ok) {
+			const json = await response.json();
+
+			main.innerHTML = json.articles.map(createArticle).join('\n');
+		}
+		throw new Error('Request Failed!');
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 async function updateSources() {
 	try {
@@ -18,20 +45,6 @@ async function updateSources() {
 			sourceSelector.innerHTML = json.sources
 				.map(src => `<option value="${src.id}">${src.name}</option> `)
 				.join('\n');
-		}
-		throw new Error('Request Failed!');
-	} catch (error) {
-		console.log(error);
-	}
-}
-
-async function updateNews(source = defaultSource ) {
-	try {
-		const response = await fetch(`https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}`);
-		if (response.ok) {
-			const json = await response.json();
-
-			main.innerHTML = json.articles.map(createArticle).join('\n');
 		}
 		throw new Error('Request Failed!');
 	} catch (error) {
