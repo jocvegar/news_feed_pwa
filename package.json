@@ -1,0 +1,23 @@
+{
+  "name": "news_app_pwa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jocvegar/news_feed_pwa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jocvegar/news_feed_pwa/issues"
+  },
+  "homepage": "https://github.com/jocvegar/news_feed_pwa#readme",
+  "dependencies": {
+    "npm": "^6.4.1",
+    "workbox-sw": "^3.4.1"
+  }
+}

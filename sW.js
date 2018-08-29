@@ -1,38 +1,49 @@
+importScripts()
+
 const staticAssets = [
 	'./',
 	'./Styles.css',
 	'./App.js',
+	'./fallback.json',
+	'./images/friday_13th_wide.jpg'
 ];
 
-self.addEventListener('install', async event => {
-	console.log("install");
-	const cache = await caches.open('news-static');
-	cache.addAll(staticAssets);
-});
+// Our own code!
 
-self.addEventListener('fetch', event => {
-	console.log("fetch");
-	const request = event.request;
-	const url = new URL(request.url);
-	if(url.origin === location.origin) {
-		event.respondWith(cacheFirst(request));
-	} else {
-		event.respondWith(networkFirst(request))
-	}
-});
+// self.addEventListener('install', async event => {
+// 	console.log("install");
+// 	const cache = await caches.open('news-static');
+// 	cache.addAll(staticAssets);
+// });
 
-async function cacheFirst(request) {
-	const cachedResponse = await caches.match(request);
-	return cachedResponse || fetch(request);
-}
+// self.addEventListener('fetch', event => {
+// 	console.log("fetch");
+// 	const request = event.request;
+// 	const url = new URL(request.url);
+// 	if(url.origin === location.origin) {
+// 		event.respondWith(cacheFirst(request));
+// 	} else {
+// 		event.respondWith(networkFirst(request))
+// 	}
+// });
 
-async function networkFirst(request) {
-	const cache = await caches.open('news-dynamic');
-	try {
-		const res = await fetch(request);
-		cache.put(request, res.clone());
-		return res;
-	} catch(error) {
-		return await cache.match(request);
-	}
-}
+// async function cacheFirst(request) {
+// 	const cachedResponse = await caches.match(request);
+// 	return cachedResponse || fetch(request);
+// }
+
+// async function networkFirst(request) {
+// 	const cache = await caches.open('news-dynamic');
+// 	try {
+// 		const response = await fetch(request);
+// 		cache.put(request, response.clone());
+// 		return response;
+// 	} catch(error) {
+// 		const cachedResponse = await cache.match(request);
+// 		return cachedResponse || await caches.match('./fallback.json')
+// 	}
+// }
+
+// Google's ServiceBox
+
+
