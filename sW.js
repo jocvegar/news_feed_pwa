@@ -1,5 +1,3 @@
-importScripts()
-
 const staticAssets = [
 	'./',
 	'./Styles.css',
@@ -46,4 +44,11 @@ const staticAssets = [
 
 // Google's ServiceBox
 
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
 
+workbox.precaching.precacheAndRoute(staticAssets);
+
+workbox.routing.registerRoute(
+  new RegExp('https://newsapi.org/\(.*)'),
+  workbox.strategies.networkFirst()
+);
